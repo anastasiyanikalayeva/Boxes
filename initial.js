@@ -161,11 +161,11 @@ window.onload = function () {
   const floor = new THREE.Mesh(
     new THREE.PlaneGeometry(10, 10),
     new THREE.MeshStandardMaterial({
-      color: 0xffffff,
+      color: '#777777',
       metalness: 0.3,
       roughness: 0.4,
       envMap: environmentMapTexture,
-      envMapIntensity: 0.3
+      envMapIntensity: 0.5
     })
   )
   floor.receiveShadow = true
