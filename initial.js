@@ -108,16 +108,6 @@ window.onload = function () {
      * Textures
      */
     const textureLoader = new THREE.TextureLoader()
-    const cubeTextureLoader = new THREE.CubeTextureLoader()
-
-    const environmentMapTexture = cubeTextureLoader.load([
-      '/textures/environmentMaps/1/px.png',
-      '/textures/environmentMaps/1/nx.png',
-      '/textures/environmentMaps/1/py.png',
-      '/textures/environmentMaps/1/ny.png',
-      '/textures/environmentMaps/1/pz.png',
-      '/textures/environmentMaps/1/nz.png'
-    ])
 
     /**
      * Physics
@@ -163,9 +153,7 @@ window.onload = function () {
       new THREE.MeshStandardMaterial({
         color: '#777777',
         metalness: 0.3,
-        roughness: 0.4,
-        envMap: environmentMapTexture,
-        envMapIntensity: 0.5
+        roughness: 0.4
       })
     )
     floor.receiveShadow = true
@@ -246,8 +234,7 @@ window.onload = function () {
       const mesh = new THREE.Mesh(boxGeometry, new THREE.MeshStandardMaterial({
         color: 0xffffff,
         metalness: 0.3,
-        roughness: 0.4,
-        envMap: environmentMapTexture
+        roughness: 0.4
       }))
       mesh.scale.set(width, height, depth)
       mesh.castShadow = true
