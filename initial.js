@@ -44,8 +44,8 @@ window.onload = function () {
      */
     const wrapper = select('#wrapper')
     const wrect = select('#wrect')
-    const ctaWrap = select('#ctaWrap')
-    const cta = select('#cta')
+    // const ctaWrap = select('#ctaWrap')
+    // const cta = select('#cta')
     const headline = select("#headline")
     const subheadline = select("#subheadline")
 
@@ -57,7 +57,7 @@ window.onload = function () {
 
     headline.innerHTML = 'MAKE 2X THE IMPACT'
     subheadline.innerHTML = 'Your gift will be MATCHED 2X to provide critical support, supplies and hope to children in need.'
-    cta.innerHTML = 'Donate Now'
+    // cta.innerHTML = 'Donate Now'
 
 
 
@@ -107,7 +107,26 @@ window.onload = function () {
     /**
      * Textures
      */
-    const textureLoader = new THREE.TextureLoader()
+    const loadingManager = new THREE.LoadingManager()
+
+    loadingManager.onStart = () => {
+      console.log('onStart')
+    }
+
+    loadingManager.onLoad = () => {
+      console.log('onLoad')
+    }
+
+    loadingManager.onProgress = () => {
+      console.log('onProgress')
+    }
+
+    loadingManager.onError = () => {
+      console.log('onError')
+    }
+
+    const textureLoader = new THREE.TextureLoader(loadingManager)
+    const colorTexture = textureLoader.load('logoUnicef.png')
 
     /**
      * Physics
@@ -166,7 +185,7 @@ window.onload = function () {
     const ambientLight = new THREE.AmbientLight(0xffffff, 1)
     scene.add(ambientLight)
 
-    const directionalLight = new THREE.DirectionalLight(0xffffff, 1)
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 0.7)
     directionalLight.castShadow = true
     directionalLight.shadow.mapSize.set(1024, 1024)
     directionalLight.shadow.camera.far = 15
@@ -232,9 +251,11 @@ window.onload = function () {
 
       // Three.js mesh
       const mesh = new THREE.Mesh(boxGeometry, new THREE.MeshStandardMaterial({
-        color: 0xffffff,
+        //   color: 0xffffff,
         metalness: 0.3,
-        roughness: 0.4
+        roughness: 0.4,
+        map: colorTexture
+
       }))
       mesh.scale.set(width, height, depth)
       mesh.castShadow = true
@@ -296,17 +317,17 @@ window.onload = function () {
       }
 
       // Cast a ray
-      if (mouse) {
-        raycaster.setFromCamera(mouse, camera)
-      }
-      const intersects = raycaster.intersectObjects(objectsToTest)
-      for (const object of objectsToTest) {
-        object.material.color.set('#ffffff')
-      }
+      // if (mouse) {
+      //   raycaster.setFromCamera(mouse, camera)
+      // }
+      // const intersects = raycaster.intersectObjects(objectsToTest)
+      // for (const object of objectsToTest) {
+      //   object.material.color.set('#ffffff')
+      // }
 
-      if (intersects.length) {
-        intersects[0].object.material.color.set('#22bdef')
-      }
+      // if (intersects.length) {
+      //   intersects[0].object.material.color.set('#22bdef')
+      // }
 
       // Render
       renderer.render(scene, camera)
